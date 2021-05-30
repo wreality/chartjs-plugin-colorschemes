@@ -34,6 +34,9 @@
     "doc": "docs",
     "test": "test"
   },
+  "scripts": {
+    "build": "gulp build"
+  },
   "devDependencies": {
     "chart.js": "~2.8.0",
     "eslint-config-chartjs": "^0.1.0",
