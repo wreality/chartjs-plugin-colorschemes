@@ -1,11 +1,9 @@
 'use strict';
 
-import Chart from 'chart.js';
-
-var helpers = Chart.helpers;
+import {Chart} from 'chart.js';
 
 // Element models are always reset when hovering in Chart.js 2.7.2 or earlier
-var hoverReset = Chart.DatasetController.prototype.removeHoverStyle.length === 2;
+var hoverReset = false; //todo: is necessary on v3?
 
 var EXPANDO_KEY = '$colorschemes';
 
@@ -25,7 +23,7 @@ pluginBase.plugins.colorschemes = {
 function getScheme(scheme) {
 	var colorschemes, matches, arr, category;
 
-	if (helpers.isArray(scheme)) {
+	if (Array.isArray(scheme)) {
 		return scheme;
 	} else if (typeof scheme === 'string') {
 		colorschemes = Chart.colorschemes || {};
@@ -50,6 +48,7 @@ var ColorSchemesPlugin = {
 	id: 'colorschemes',
 
 	beforeUpdate: function(chart, args, options) {
+    var helpers = Chart.helpers;
 		// Please note that in v3, the args argument was added. It was not used before it was added,
 		// so we just check if it is not actually our options object
 		if (options === undefined) {
@@ -73,9 +72,9 @@ var ColorSchemesPlugin = {
 				customResult = custom(schemeClone);
 
 				// check if we really received a filled array; otherwise we keep and use the original scheme
-				if (helpers.isArray(customResult) && customResult.length) {
+				if (Array.isArray(customResult) && customResult.length) {
 					scheme = customResult;
-				} else if (helpers.isArray(schemeClone) && schemeClone.length) {
+				} else if (Array.isArray(schemeClone) && schemeClone.length) {
 					scheme = schemeClone;
 				}
 			}
@@ -170,6 +169,12 @@ var ColorSchemesPlugin = {
 	}
 };
 
-Chart.plugins.register(ColorSchemesPlugin);
+if (Chart.registry) {
+  // Chartjs 3
+  Chart.register(ColorSchemesPlugin);
+} else {
+  // Chartjs 2
+  Chart.plugins.register(ColorSchemesPlugin);
+}
 
 export default ColorSchemesPlugin;

@@ -1,6 +1,6 @@
 'use strict';
 
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 import colorschemes from './colorschemes/index';
 import ColorSchemesPlugin from './plugins/plugin.colorschemes';
 
