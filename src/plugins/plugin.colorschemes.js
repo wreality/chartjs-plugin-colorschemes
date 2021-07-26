@@ -1,7 +1,7 @@
 'use strict';
 
 import {Chart} from 'chart.js';
-
+import { color } from 'chart.js/helpers';
 // Element models are always reset when hovering in Chart.js 2.7.2 or earlier
 var hoverReset = false; //todo: is necessary on v3?
 
@@ -48,7 +48,6 @@ var ColorSchemesPlugin = {
 	id: 'colorschemes',
 
 	beforeUpdate: function(chart, args, options) {
-    var helpers = Chart.helpers;
 		// Please note that in v3, the args argument was added. It was not used before it was added,
 		// so we just check if it is not actually our options object
 		if (options === undefined) {
@@ -96,7 +95,7 @@ var ColorSchemesPlugin = {
 				case 'scatter':
 					if (typeof dataset.backgroundColor === 'undefined' || override) {
 						dataset[EXPANDO_KEY].backgroundColor = dataset.backgroundColor;
-						dataset.backgroundColor = helpers.color(color).alpha(fillAlpha).rgbString();
+						dataset.backgroundColor = color(color).alpha(fillAlpha).rgbString();
 					}
 					if (typeof dataset.borderColor === 'undefined' || override) {
 						dataset[EXPANDO_KEY].borderColor = dataset.borderColor;
@@ -104,7 +103,7 @@ var ColorSchemesPlugin = {
 					}
 					if (typeof dataset.pointBackgroundColor === 'undefined' || override) {
 						dataset[EXPANDO_KEY].pointBackgroundColor = dataset.pointBackgroundColor;
-						dataset.pointBackgroundColor = helpers.color(color).alpha(fillAlpha).rgbString();
+						dataset.pointBackgroundColor = color(color).alpha(fillAlpha).rgbString();
 					}
 					if (typeof dataset.pointBorderColor === 'undefined' || override) {
 						dataset[EXPANDO_KEY].pointBorderColor = dataset.pointBorderColor;
