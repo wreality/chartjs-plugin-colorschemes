@@ -35,7 +35,8 @@
     "test": "test"
   },
   "scripts": {
-    "build": "gulp build"
+    "build": "gulp build",
+    "prepare": "gulp build"
   },
   "devDependencies": {
     "chart.js": "~2.8.0",
